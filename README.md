@@ -32,7 +32,7 @@ Steps
 
 ## Database Tab - PyCharm
 
-The Database tab is near the right hand side corner. It's listed vertically, with the  icon, right under the 'search' icon.
+The Database tab is near the right hand side corner. The text is flipped vertically; it's right under the 'search' icon.
 
 ![](https://i.imgur.com/thIG6HX.png)
 
