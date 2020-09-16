@@ -96,6 +96,10 @@ If we've created a class that takes a Document as a parameter, it gains the .sav
 
 For example, question_document.save() will find the QuestionDocument class, create a collection called question_document (MongoEngine does its own formatting) according to the fields we've defined. 
 
+NOTE: MongoDB creates an id field called _id when a new document is added. You can access with the 'pk' property on any class that is compatible
+
+E.g. QuestionDocumentObject.pk
+
 ## Querying
 
 You'll get a list of all the items in the question_document collection with 
