@@ -18,8 +18,10 @@ def process_input(choice: str):
     if choice == 'p':
         question_text = input("What is your question?\n>>")
         new_question = Question(question_text, [])
-        question_document = QuestionDocument(question_text=new_question.question_text, replies=new_question.replies)
-        question_document.save()
+        question_doc = QuestionDocument(question_text=new_question.question_text,
+                                        replies=new_question.replies,
+                                        num_replies=new_question.get_num_replies())
+        question_doc.save()
         print(f"'{question_text}' has been posted.")
     elif choice == 'l':
         print(f"Listing all questions... {questions_list} found \n")
@@ -36,6 +38,7 @@ def process_input(choice: str):
                 reply = input("Enter your reply... type 'stop' to stop answering\n>>")
                 if reply != 'stop':
                     questions_list[the_index].replies.append(reply)
+
             else:
                 print("Not a valid question number.\n")
         except TypeError:

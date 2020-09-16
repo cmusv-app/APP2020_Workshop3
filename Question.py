@@ -1,9 +1,10 @@
-from mongoengine import Document, StringField, ListField
+from mongoengine import Document, StringField, ListField, IntField
 
 
 class QuestionDocument(Document):
     question_text = StringField(max_length=200, required=True)
     replies = ListField(field=StringField)
+    num_replies = IntField
 
 
 class Question:
