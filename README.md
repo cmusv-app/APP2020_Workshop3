@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-First of all, you need to install MongoDB and get it running. How to do that depends on your operating system.
+First of all, you need to install MongoDB and get it running. How to do that depends on your operating system. If you have any issues, please don't hesistate to reach out.
 
 ### Installing MongoDB - MacOS
 
