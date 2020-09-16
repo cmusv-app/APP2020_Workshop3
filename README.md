@@ -30,10 +30,6 @@ Steps
 4) Install the MongoDB image using Kitematic
 5) Run MongoDB by clicking 'start'
 
-## What is MongoDB?
-
-
-
 ## Database Tab - PyCharm
 
 The Database tab is near the right hand side corner. It's listed vertically, with the  icon, right under the 'search' icon.
@@ -52,7 +48,7 @@ NOTE: ONLY DATABASES WITH SAVED ITEMS WILL SHOW. Just connecting will not create
 
 ![](https://imgur.com/vx91y8f.png)
 
-Double-clicking on a collection will bring up the center panel, which displays all the saved items in that collection. The collection must NOT be empty for the panel to show.
+Double-clicking on a collection will bring up the center panel, which displays all the saved items in that collection. 
 
 ## MongoEngine
 
@@ -76,7 +72,8 @@ You'll notice we've created a new class, QuestionDocument.
 ```
 class QuestionDocument(Document):
     question_text = StringField(max_length=200, required=True)
-    replies = ListField(field=StringField)
+    replies = ListField(field=StringField())
+    num_replies = IntField()
 ```
 
 The class takes a Document argument from MongoEngine, allowing us to use this class as a model for our Question document in the database. We can also use some items from MongoEngine to create some rules about our model properties.
@@ -94,7 +91,7 @@ question_doc.save()
 ```
 If we've created a class that takes a Document as a parameter, it gains the .save() method. Invoking .save() will create a collection of the same name as the class and save that object to that collection.
 
-For example, question_document.save() will find the QuestionDocument class, create a collection called question_document (MongoEngine does its own formatting) according to the fields we've defined. 
+For example, question_document.save() will find the QuestionDocument class, if no existing collection exists, create a collection called question_document (MongoEngine does its own formatting) according to the fields we've defined. 
 
 NOTE: MongoDB creates an id field called _id when a new document is added. You can access with the 'pk' property on any class that is compatible
 
@@ -116,3 +113,16 @@ More information on how to query using MongoEngine can be found [here.](https://
 You can also add [custom methods with pre-written filters.](https://docs.mongoengine.org/guide/querying.html#default-document-queries)
 
 ## Updating
+
+You can either use save again, as so
+```
+the_doc = QuestionDocument.objects(id=new_question.primary_key).first()
+# objects returns a list, first() returns the first result
+
+the_doc.replies = new_question.replies
+the_doc.save()
+```
+Or invoke an update function in a query
+```
+QuestionDocument.objects(id=new_question.primary_key).update_one(replies=new_question.replies)
+```
